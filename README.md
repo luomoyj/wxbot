@@ -8,12 +8,15 @@
 
 - Windows 10／11，以下命令在项目根目录的 PowerShell中执行。
 - Python 3.11+。
-- Node.js 16+（含 npm，用于安装 Codex CLI）。
+- Node.js 16+（含 npm，仅通过 npm安装 Codex CLI时需要）。
 - 已安装并登录的 Codex，以及可用的模型。
 
 ## 快速开始
 
-尚未安装 Codex CLI时，按 [官方安装说明](https://developers.openai.com/codex/cli) 安装并登录：
+Codex桌面端和 CLI任选一种：
+
+- **桌面端**：按 [官方说明](https://developers.openai.com/codex/app) 安装并登录，打开本项目目录。wxbot会优先使用桌面端附带的 Codex，无需再安装 CLI。
+- **CLI**：按 [官方说明](https://developers.openai.com/codex/cli) 安装并登录：
 
 ```powershell
 npm install --global @openai/codex
