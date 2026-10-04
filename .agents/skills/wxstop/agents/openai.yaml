@@ -1,0 +1,4 @@
+interface:
+  display_name: "Stop WeChat auto reply"
+  short_description: "Stop this project background WeChat AI auto reply process"
+  default_prompt: "Use $wxstop to stop the wxbot auto-reply process."

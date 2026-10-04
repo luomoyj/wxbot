@@ -1,0 +1,4 @@
+interface:
+  display_name: "WeChat auto reply status"
+  short_description: "Check whether the wxbot auto reply process is running"
+  default_prompt: "Use $wxstatus to check the wxbot auto-reply status."

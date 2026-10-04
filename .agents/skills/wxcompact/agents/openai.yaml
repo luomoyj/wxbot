@@ -1,0 +1,4 @@
+interface:
+  display_name: "Compact WeChat conversation"
+  short_description: "Compact the current wxbot AI context and preserve conversation state"
+  default_prompt: "Use $wxcompact to compact the current wxbot conversation context."

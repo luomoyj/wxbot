@@ -1,0 +1,4 @@
+interface:
+  display_name: "Start WeChat auto reply"
+  short_description: "Start this project WeChat AI auto reply process in background"
+  default_prompt: "Use $wxstart to start the wxbot auto-reply process."

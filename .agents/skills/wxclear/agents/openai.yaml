@@ -1,0 +1,4 @@
+interface:
+  display_name: "Clear WeChat conversation"
+  short_description: "Clear local wxbot AI history but preserve pairing state"
+  default_prompt: "Use $wxclear to clear the local wxbot conversation history."

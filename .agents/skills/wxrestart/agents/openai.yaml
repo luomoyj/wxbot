@@ -1,0 +1,4 @@
+interface:
+  display_name: "Restart WeChat auto reply"
+  short_description: "Stop and restart the wxbot AI auto reply background process"
+  default_prompt: "Use $wxrestart to restart the wxbot auto-reply process."

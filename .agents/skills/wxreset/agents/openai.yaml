@@ -1,0 +1,4 @@
+interface:
+  display_name: "wxreset"
+  short_description: "Preview and confirm full wxbot AI state reset"
+  default_prompt: "Use $wxreset to preview a full wxbot AI state reset and ask for confirmation."
