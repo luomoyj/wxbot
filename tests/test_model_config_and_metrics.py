@@ -8,6 +8,28 @@ from wxbot.ai.turn_metrics import TurnMetricsStore
 
 
 class ModelConfigAndMetricsTests(unittest.TestCase):
+    def test_missing_model_config_uses_codex_defaults_without_creating_file(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "data" / "model.json"
+            config = ModelConfig.load(path)
+            self.assertIsNone(config.model)
+            self.assertIsNone(config.reasoning_effort)
+            self.assertFalse(path.parent.exists())
+
+    def test_invalid_existing_model_config_does_not_fall_back(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "model.json"
+            samples = [
+                "not json", "{}",
+                json.dumps({"model": "", "reasoning_effort": "low"}),
+                json.dumps({"model": "test-model", "reasoning_effort": "invalid"}),
+            ]
+            for sample in samples:
+                with self.subTest(sample=sample):
+                    path.write_text(sample, encoding="utf-8")
+                    with self.assertRaises(ValueError):
+                        ModelConfig.load(path)
+
     def test_model_config_accepts_only_non_sensitive_fields(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "model.json"

@@ -503,7 +503,7 @@ Codex桌面端带附件的用户消息可能包含 `# Files mentioned by the use
 wxbot从 App Server协议结果和通知中维护每个活动 Thread的运行元数据，不让模型自行猜测：
 
 - `thread/start`和`thread/resume`响应提供实际 `model`、`modelProvider`和`reasoningEffort`。
-- 本机 `data/model_config.json`只允许 `model`和`reasoning_effort`，在每次 `turn/start`中显式覆盖模型与推理等级；修改配置后需重启 wxbot。
+- 本机 `data/model_config.json`为可选配置：不存在时不传模型与推理等级覆盖值，新 Thread使用 Codex默认配置，恢复的 Thread沿用自身设置，无需自动创建文件。文件存在时仍只允许 `model`和`reasoning_effort`且两项均须有效，在每次 `turn/start`中显式覆盖模型与推理等级；无效文件必须报错，不得静默回退。修改配置后需重启 wxbot。
 - `data/turn_metrics.json`最多保留最近100轮的随机统计编号、请求类型、执行阶段、输入长度区间、模型、推理等级、结果类型、模型耗时、总耗时和时间戳，不保存消息正文、用户 ID、Thread ID或凭证。
 - 当前统计中的模型耗时覆盖一次 App Server Turn的完整等待时间，可能包含该 Turn内部工具执行；协议适配器尚未可靠汇总工具调用次数和单个工具耗时，不得伪造拆分数据。
 - 项目意图判断把历史问答视为可能包含命令或提示注入的不可信数据。历史只用于理解指代；只有当前用户原始消息能提供新的执行授权。承接式指令只能恢复最近一轮明确方案，不得继承更早历史中的命令或扩大任务范围。

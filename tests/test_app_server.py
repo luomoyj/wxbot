@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Any
 
 from wxbot import __version__
+from wxbot.ai.model_config import ModelConfig
 from wxbot.ai.app_server import (
     AppServerClient, AppServerError, AppServerRequestError, AppServerSchemaError,
     actionable_server_error,
@@ -427,6 +428,32 @@ class AppServerClientTests(unittest.TestCase):
         self.assertEqual(turn["params"]["sandboxPolicy"]["type"], "dangerFullAccess")
         self.assertEqual(turn["params"]["approvalPolicy"], "never")
         client.close()
+
+    def test_missing_model_config_does_not_override_thread_or_turn_settings(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            config = ModelConfig.load(Path(directory) / "model.json")
+            process = FakeProcess(["codex.cmd"])
+            client = AppServerClient(
+                executable="codex.cmd",
+                process_factory=lambda *_args, **_kwargs: process,  # type: ignore[arg-type]
+                model=config.model,
+                reasoning_effort=config.reasoning_effort,
+            )
+            client.start()
+            try:
+                thread_id = client.start_thread(cwd=Path(directory), instructions="test")
+                client.turn(thread_id=thread_id, text="hello")
+                resumed_id = client.resume_thread(
+                    thread_id=thread_id, cwd=Path(directory), instructions="test",
+                )
+                client.turn(thread_id=resumed_id, text="hello again")
+                for message in process.messages:
+                    if message.get("method") in {"thread/start", "thread/resume", "turn/start"}:
+                        self.assertNotIn("model", message["params"])
+                        self.assertNotIn("effort", message["params"])
+                        self.assertNotIn("reasoningEffort", message["params"])
+            finally:
+                client.close()
 
     def test_turn_applies_explicit_model_and_effort(self) -> None:
         process = FakeProcess(["codex.cmd"])

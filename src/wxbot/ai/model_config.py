@@ -10,15 +10,15 @@ ALLOWED_EFFORTS = {"minimal", "low", "medium", "high", "xhigh", "max", "ultra"}
 
 @dataclass(frozen=True)
 class ModelConfig:
-    model: str
-    reasoning_effort: str
+    model: str | None
+    reasoning_effort: str | None
 
     @classmethod
     def load(cls, path: Path) -> "ModelConfig":
         try:
             payload = json.loads(path.read_text(encoding="utf-8"))
-        except FileNotFoundError as exc:
-            raise ValueError(f"缺少模型配置文件：{path}") from exc
+        except FileNotFoundError:
+            return cls(model=None, reasoning_effort=None)
         except (OSError, json.JSONDecodeError) as exc:
             raise ValueError("模型配置文件无法读取或不是有效 JSON") from exc
         if not isinstance(payload, dict) or set(payload) != {"model", "reasoning_effort"}:

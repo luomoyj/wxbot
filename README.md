@@ -27,20 +27,15 @@ python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -e .
 ```
 
-首次使用先创建模型配置，已有配置时跳过：
-
-```powershell
-New-Item -ItemType Directory -Path data -Force | Out-Null
-Copy-Item model-config.example.json data/model_config.json
-```
-
-把 `data/model_config.json` 中的 `model` 改为当前 Codex账号可用的模型，`reasoning_effort` 为推理等级；修改后重启服务生效。
+首次使用无需配置模型，直接运行：
 
 ```powershell
 .\.venv\Scripts\wxbot.exe setup
 ```
 
 扫码确认后自动启动后台回复。首次发送有效文本的微信用户会成为唯一白名单，随后即可聊天或要求 Codex操作项目。
+
+默认沿用 Codex设置，已有会话保留自身模型和推理等级。需要单独指定时，可参考 `model-config.example.json` 创建本机 `data/model_config.json`，设置 `model`（模型）和 `reasoning_effort`（推理等级），重启服务生效。
 
 ## 常用操作
 
