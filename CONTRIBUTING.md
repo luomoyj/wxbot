@@ -1,6 +1,6 @@
 # 参与贡献
 
-感谢你改进 wxbot。提交变更前，请先阅读 [README](README.md)、[技术设计](docs/TECHNICAL_DESIGN.md) 和 [项目路线图](ROADMAP.md)，确认变更符合当前协议边界和开发阶段。
+感谢你改进 wxbot。提交变更前，请先阅读 [README](README.md) 和 [技术设计](docs/TECHNICAL_DESIGN.md)，确认变更符合当前协议边界。
 
 ## 开发环境
 
@@ -34,6 +34,6 @@ python -m venv .venv
 2. 保持每个提交目标单一，提交信息清楚说明改了什么。
 3. 运行全部自动化测试，并在 Pull Request中写明测试数量和结果。
 4. 说明是否仍需维护者进行真实微信人工验收。
-5. 涉及安全问题时不要创建公开 Issue或 Pull Request，请按 [安全政策](SECURITY.md) 私密报告。
+5. 涉及安全问题时，不要在公开 Issue或 Pull Request中披露真实凭证或漏洞利用细节。
 
 提交贡献即表示你同意按本项目的 [MIT License](LICENSE) 发布该贡献。

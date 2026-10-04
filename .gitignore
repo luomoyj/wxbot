@@ -8,6 +8,7 @@ dist/
 *.egg-info/
 data/
 tmp/
+/ROADMAP.md
 *.log
 
 .env*
